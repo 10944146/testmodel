@@ -14,20 +14,25 @@
   function preload() {
     classifier = ml5.imageClassifier(imageModelURL + 'model.json');
   }
-
+  const constraints = {
+    audio: false,
+    video: {
+      facingMode: "environment"
+    }
+  };
+  //打開攝影機
   function setup() {
-    createCanvas(320, 260);
+    createCanvas(500 , 500);
     // Create the video
     video = createCapture(VIDEO);
-    video.size(320, 240);
+    video.size(500, 480);
     video.hide();
-
+    // 從攝影機擷取影像並辨識
     flippedVideo = ml5.flipImage(video);
     // Start classifying
     classifyVideo();
   }
-
-  function draw() {
+function draw() {
     background(0);
     // Draw the video
     image(flippedVideo, 0, 0);
@@ -38,8 +43,7 @@
     textAlign(CENTER);
     text(label, width / 2, height - 4);
   }
-
-  // Get a prediction for the current video frame
+  //辨識影像
   function classifyVideo() {
     flippedVideo = ml5.flipImage(video)
     classifier.classify(flippedVideo, gotResult);
@@ -56,7 +60,11 @@
     }
     // The results are in an array ordered by confidence.
     // console.log(results[0]);
-    label = results[0].label;
+    //label = results[0].label;
+    // 讀取辨識信賴度最高的分類名稱 (標籤) 及信賴度
+    label = String(results[0].label);
+    conf = Math.round(Number(results[0].confidence) * 10000) / 100;
+    console.log(`Result: ${label} (${conf} %)`);
     // Classifiy again!
     classifyVideo();
   }
