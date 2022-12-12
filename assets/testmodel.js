@@ -18,11 +18,11 @@
 
   //打開攝影機
   function setup() {
-    createCanvas(1280 , 720);
+    createCanvas(800 , 720);
     // Create the video
     video = createCapture(VIDEO);
-    video.size(1280, 650);
-    video.hide();
+    video.size(800, 650);
+    //video.hide();
     
     constraints = { //相機限制
       audio: false,
