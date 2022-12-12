@@ -14,34 +14,36 @@
   function preload() {
     classifier = ml5.imageClassifier(imageModelURL + 'model.json');
   }
-  const constraints = {
-    audio: false,
-    video: {
-      facingMode: "environment"
-    }
-  };
+
   //打開攝影機
   function setup() {
-    createCanvas(500 , 500);
+    createCanvas(1280 , 720);
     // Create the video
     video = createCapture(VIDEO);
-    video.size(500, 480);
+    video.size(1280, 650);
     video.hide();
+    
+    const constraints = { //相機限制
+      audio: false,
+      video: {
+        facingMode: "environment"  //開後鏡頭
+      }
+    };
     // 從攝影機擷取影像並辨識
     flippedVideo = ml5.flipImage(video);
     // Start classifying
     classifyVideo();
   }
-function draw() {
+  function draw() {
     background(0);
     // Draw the video
     image(flippedVideo, 0, 0);
 
     // Draw the label
     fill(255);
-    textSize(16);
+    textSize(48);
     textAlign(CENTER);
-    text(label, width / 2, height - 4);
+    text(label, width / 2, height - 10);
   }
   //辨識影像
   function classifyVideo() {
