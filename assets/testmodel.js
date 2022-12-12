@@ -22,7 +22,7 @@
     // Create the video
     video = createCapture(VIDEO);
     video.size(800, 650);
-    //video.hide();
+    video.hide();
     
     constraints = { //相機限制
       audio: false,
