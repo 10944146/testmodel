@@ -1,6 +1,7 @@
 
   // Classifier Variable
   let classifier;
+  let constraints;
   // Model URL
   let imageModelURL = 'https://teachablemachine.withgoogle.com/models/0JbPikCro/';
   
@@ -23,7 +24,7 @@
     video.size(1280, 650);
     video.hide();
     
-    const constraints = { //相機限制
+    constraints = { //相機限制
       audio: false,
       video: {
         facingMode: "environment"  //開後鏡頭
